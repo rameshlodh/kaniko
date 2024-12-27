@@ -1,16 +1,12 @@
-name: Build and Push Docker Image with Kaniko to Docker Hub
+name: Build and Push Docker Image with Kaniko
 
 on:
   push:
     branches:
       - main
-    paths:
-      - Dockerfile
-      - '**/*.dockerfile'
 
 jobs:
   build-and-push:
-    name: Build and Push to Docker Hub
     runs-on: ubuntu-latest
 
     steps:
@@ -24,11 +20,12 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and Push Docker Image with Kaniko
-        uses: aevea/kaniko-action@v0.8.0
-        with:
-          image: ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }}
-          dockerfile: ./Dockerfile
-          context: .
-
-      - name: Verify Image Push
-        run: echo "Docker image pushed successfully to Docker Hub"
+        run: |
+          docker run \
+            --rm \
+            -v $(pwd):/workspace \
+            -v $HOME/.docker:/kaniko/.docker \
+            gcr.io/kaniko-project/executor:latest \
+            --dockerfile ./Dockerfile \
+            --destination=${{ secrets.DOCKER_USERNAME }}/your-repo-name:${{ github.sha }} \
+            --context=dir:///workspace
