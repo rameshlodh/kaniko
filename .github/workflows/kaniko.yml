@@ -30,5 +30,4 @@ jobs:
             --destination=${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }} \
             --context=dir:///workspace \
             --cache=true \
-            --cache-repo=${{ secrets.DOCKER_USERNAME }}/kaniko-cache
-            
+            --cache-repo=${{ secrets.DOCKER_USERNAME }}/kaniko-cache:latest
