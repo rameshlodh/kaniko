@@ -27,5 +27,5 @@ jobs:
             -v $HOME/.docker:/kaniko/.docker \
             gcr.io/kaniko-project/executor:latest \
             --dockerfile ./Dockerfile \
-            --destination=${{ secrets.DOCKER_USERNAME }}/your-repo-name:${{ github.sha }} \
+            --destination=${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }} \
             --context=dir:///workspace
