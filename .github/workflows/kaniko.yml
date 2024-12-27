@@ -26,8 +26,8 @@ jobs:
             -v $(pwd):/workspace \
             -v $HOME/.docker:/kaniko/.docker \
             gcr.io/kaniko-project/executor:latest \
-            --dockerfile ./Dockerfile \
+            --dockerfile /workspace/Dockerfile \
             --destination=${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }} \
-            --context=dir:///workspace
+            --context=dir:///workspace \
             --cache=true \
             --cache-repo=${{ secrets.DOCKER_USERNAME }}/kaniko-cache
