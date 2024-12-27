@@ -31,3 +31,4 @@ jobs:
             --context=dir:///workspace \
             --cache=true \
             --cache-repo=${{ secrets.DOCKER_USERNAME }}/kaniko-cache
+            
